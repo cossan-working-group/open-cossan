@@ -49,7 +49,7 @@ classdef DiscreteDesignVariable < opencossan.optimization.DesignVariable
                     obj.Value = min(obj.Support);
                 end
 
-                assert(isempty(obj.Support) && ~isempty(intersect(obj.Value,obj.Support)),...
+                assert(ismember(obj.Value,obj.Support),...
                     'OpenCossan:ContinuousDesignVariable:IllegalArgument',...
                     'Value must be among the support points.');
             end
@@ -67,7 +67,7 @@ classdef DiscreteDesignVariable < opencossan.optimization.DesignVariable
             optional = opencossan.common.utilities.parseOptionalNameValuePairs(...
                 "nsamples", {1}, varargin{:});
 
-            samples = obj.Support(random('unid', length(obj.Support), optional.nsamples, 1));
+            samples = obj.Support(random('unid', length(obj.Support), optional.nsamples, 1))';
         end
 
         function values = getValues(obj, percentiles)

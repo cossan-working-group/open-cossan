@@ -2,6 +2,10 @@
 
 pipeline {
 
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+
     // Run in docker container
     agent {
         docker {
